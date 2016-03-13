@@ -143,8 +143,12 @@ public class AIPlayer extends Player {
                 return;
             }
 
-            for (CoordinatePair move : optMoves) {
-                gameLogic = gameLogic.doTurn(move.x, move.y);
+            if (optMoves.size() == 0) { //There were no possible turns for me
+                gameLogic = gameLogic.skipTurn();
+            } else {
+                for (CoordinatePair move : optMoves) {
+                    gameLogic = gameLogic.doTurn(move.x, move.y);
+                }
             }
             game.applyPlayerEvents(gameLogic.getLastEventsBy(ownFigure), AIPlayer.this);
         }

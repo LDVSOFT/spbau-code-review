@@ -3,6 +3,7 @@ package net.ldvsoft.warofviruses;
 import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.XMPPException;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.io.IOException;
@@ -30,7 +31,7 @@ public class GCMHandler extends SmackCcsClient {
             String to,
             String messageId,
             String action,
-            JsonObject data,
+            JsonElement data,
             String collapseKey,
             Long timeToLive,
             Boolean delayWhileIdle,
@@ -67,6 +68,16 @@ public class GCMHandler extends SmackCcsClient {
                     false,
                     "high"
             ));
+        }
+    }
+
+    @Override
+    protected void handleNackReceipt(JsonObject JsonObject) {
+        super.handleNackReceipt(JsonObject);
+        String from = JsonObject.get("from").getAsString();
+        String error = JsonObject.get("error").getAsString();
+        if (error.equals("DEVICE_UNREGISTERED")) {
+            server.getDatabaseHandler().deleteDeviceToken(from);
         }
     }
 

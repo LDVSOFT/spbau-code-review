@@ -31,7 +31,7 @@ public class DBOpenHelper extends SQLiteOpenHelper implements DBProvider {
 
     private static final String CREATE_TURN_TABLE = "CREATE TABLE " + TURN_TABLE + "(" + GAME_ID + " INTEGER UNSIGNED NOT NULL, " +
             TURN_NUMBER + " INT UNSIGNED NOT NULL, " + TURN_TYPE + " INT NOT NULL, " + TURN_X + " INT NULL, " + TURN_Y + " INT NULL, " +
-            "PRIMARY KEY(" + GAME_ID + ", " + TURN_NUMBER + "), FOREIGN KEY (" + GAME_ID + ") REFERENCES " + GAME_ID + "(" + ID + ")" +
+            "PRIMARY KEY(" + GAME_ID + ", " + TURN_NUMBER + "), FOREIGN KEY (" + GAME_ID + ") REFERENCES " + GAME_TABLE + "(" + ID + ")" +
             "ON DELETE CASCADE ON UPDATE CASCADE);";
 
     private static final String CREATE_USER_TABLE = "CREATE TABLE " + USER_TABLE + "(" + ID + " INTEGER, " + GOOGLE_TOKEN +
@@ -251,8 +251,7 @@ public class DBOpenHelper extends SQLiteOpenHelper implements DBProvider {
     }
 
     public void deleteGameById(long gameID) {
-        Object [] params = new Object[1];
-        params[0] = gameID;
+        Object[] params = new Object[]{gameID};
         getWritableDatabase().execSQL(DELETE_GAME_TURNS_BY_ID, params);
         getWritableDatabase().execSQL(DELETE_GAME_BY_ID, params);
     }

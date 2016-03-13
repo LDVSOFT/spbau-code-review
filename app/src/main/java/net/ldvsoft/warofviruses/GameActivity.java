@@ -6,17 +6,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -38,7 +34,6 @@ public class GameActivity extends GameActivityBase {
     private Button confirmTurnButton;
     private Button skipTurnButton;
 
-    private BroadcastReceiver tokenSentReceiver;
     private BroadcastReceiver gameLoadedFromServerReceiver;
     private Game game = null;
     private static final long NO_GAME_SAVED = -1;
@@ -146,18 +141,6 @@ public class GameActivity extends GameActivityBase {
         skipTurnButton    = (Button) findViewById(R.id.game_button_skipturn);
 
         game = new Game();
-        tokenSentReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-                boolean sentToken = prefs.getBoolean(WoVPreferences.GCM_SENT_TOKEN_TO_SERVER, false);
-                if (sentToken) {
-                    Toast.makeText(GameActivity.this, "YEEEEEEEY!", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(GameActivity.this, "Oh no, Oh no, Oh no-no-no-no(", Toast.LENGTH_SHORT).show();
-                }
-            }
-        };
 
         Intent intent = getIntent();
 
@@ -190,9 +173,6 @@ public class GameActivity extends GameActivityBase {
         }
         unregisterReceiver(gameLoadedFromServerReceiver);
 
-        LocalBroadcastManager
-                .getInstance(this)
-                .unregisterReceiver(tokenSentReceiver);
         super.onPause();
     }
 
@@ -278,11 +258,7 @@ public class GameActivity extends GameActivityBase {
         super.onResume();
         new StoredGameLoader().execute();
         gameLoadedFromServerReceiver = new GameLoadedFromServerReceiver();
-        registerReceiver(gameLoadedFromServerReceiver, new IntentFilter(WoVPreferences.GAME_LOADED_FROM_SERVER_BROADCAST));
-
-        LocalBroadcastManager
-                .getInstance(this)
-                .registerReceiver(tokenSentReceiver, new IntentFilter(WoVPreferences.GCM_REGISTRATION_COMPLETE));
+        registerReceiver(gameLoadedFromServerReceiver, new IntentFilter(WoVPreferences.MAIN_BROADCAST));
     }
 
     private void saveCurrentGame() {
@@ -335,7 +311,7 @@ public class GameActivity extends GameActivityBase {
         @Override
         public void onReceive(Context context, Intent intent) {
             Log.d("GameActivity", "networkLoadGame broadcast recieved!");
-            Bundle tmp = intent.getBundleExtra(WoVPreferences.GAME_BUNDLE);
+            Bundle tmp = intent.getBundleExtra(WoVPreferences.BUNDLE);
             String data = tmp.getString(WoVProtocol.DATA);
             loadGameFromJson(data);
         }

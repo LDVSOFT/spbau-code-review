@@ -18,5 +18,9 @@
         <item
             android:id="@+id/drawer_clear_db"
             android:title="Wipe local DB" />
+
+        <item
+            android:id="@+id/drawer_ping"
+            android:title="Ping" />
     </group>
 </menu>

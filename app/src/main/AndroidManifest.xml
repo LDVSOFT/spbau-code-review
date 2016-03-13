@@ -78,11 +78,6 @@
                 <action android:name="com.google.android.gms.iid.InstanceID" />
             </intent-filter>
         </service>
-
-        <service
-            android:name="net.ldvsoft.warofviruses.WoVRegistrationIntentService"
-            android:exported="false">
-        </service>
-    </application>
+</application>
 
 </manifest>

@@ -3,6 +3,7 @@
 
     <string name="action_settings">Settings</string>
     <string name="server_cgi">https://ldvsoft.net/cgi/war-of-viruses</string>
+    <string name="server_client_id" translatable="false"><![CDATA[555379223441-4ck01sd19d01ktd96c453pgvlhklmtk3.apps.googleusercontent.com]]></string>
 
     <string name="game_give_up">Give Up</string>
     <string name="game_skip_turn">Skip Turn</string>
@@ -20,4 +21,6 @@
     <string name="game_status_zero_gave_up">Zeroes gave up</string>
     <string name="game_confirm_turn">Confirm turn</string>
     <string name="game_cancel_turn">Cancel turn</string>
+    <string name="menu_connecting_to_server">Connecting to server...</string>
+    <string name="menu_logging_back">Logging back...</string>
 </resources>

@@ -14,5 +14,7 @@ dependencies {
     compile 'org.igniterealtime.smack:smack-debug:4.1.4'
     compile 'mysql:mysql-connector-java:5.1.38'
     compile 'com.google.code.gson:gson:2.6.1'
+    compile 'com.google.api-client:google-api-client:1.21.0'
+    compile 'com.google.api-client:google-api-client-gson:1.21.0'
     compile project(':logic')
 }

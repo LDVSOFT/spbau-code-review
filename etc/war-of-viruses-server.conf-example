@@ -9,6 +9,7 @@ java.util.logging.ConsoleHandler.formatter=java.util.logging.SimpleFormatter
 # Server
 google.projectId=555379223441
 google.apiKey=YOU-KNOW-IT-IS-A-SECRET
+google.serverClientId=FOOBARBAZ.apps.googleusercontent.com
 db.server=localhost
 db.name=War-Of-Viruses
 db.user=wov

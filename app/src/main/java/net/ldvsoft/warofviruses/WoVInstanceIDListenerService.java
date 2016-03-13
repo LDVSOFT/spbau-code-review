@@ -1,6 +1,6 @@
 package net.ldvsoft.warofviruses;
 
-import android.content.Intent;
+import android.util.Log;
 
 import com.google.android.gms.iid.InstanceIDListenerService;
 
@@ -10,6 +10,6 @@ import com.google.android.gms.iid.InstanceIDListenerService;
 public class WoVInstanceIDListenerService extends InstanceIDListenerService {
     @Override
     public void onTokenRefresh() {
-        startService(new Intent(this, WoVRegistrationIntentService.class));
+        Log.wtf(this.getClass().getName(), "OH YEAH TOKEN UPDATED.");
     }
 }

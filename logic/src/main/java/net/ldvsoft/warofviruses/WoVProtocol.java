@@ -19,7 +19,6 @@ public class WoVProtocol {
 
     public static final String PING_ID = "id";
     public static final String ACTION_TURN = "turn";
-    public static final String EVENT = "event";
 
     public static final String GAME_LOADED = "gameLoaded";
     public static final String TURN_ARRAY = "turnArray";
@@ -30,6 +29,14 @@ public class WoVProtocol {
     public static final String MY_FIGURE = "myFigure";
     public static final String ACTION_USER_READY = "userReady";
     public static final String ACTION_UPDATE_LOCAL_GAME = "updateLocalGame";
+
+    public static final String ACTION_LOGIN = "login";
+    public static final String ACTION_LOGOUT = "logout";
+    public static final String GOOGLE_TOKEN = "googleToken";
+    public static final String LOCAL_USER = "localUser";
+
+    public static final String ACTION_LOGIN_COMPLETE = "loginComplete";
+    public static final String USER = "user";
 
     private static final Gson gson = new Gson();
     public static List<GameEvent> eventsFromJson(JsonObject jsonData) {

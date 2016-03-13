@@ -26,10 +26,11 @@ public interface DBProvider {
     String NICKNAME_ID = "nicknameID";
     String COLOR_CROSS = "colorCross";
     String COLOR_ZERO = "colorZero";
-    String INVITATION_TARGET = "invocationTarget";
+    String INVITATION_TARGET = "invitationTarget";
     String PLAYER_CROSSES_TYPE = "playerCrossesType";
     String PLAYER_ZEROES_TYPE = "playerZeroesType";
     String TOKEN = "token";
+    String USER = "user";
 
     /**
      * Special user ids.
@@ -71,11 +72,14 @@ public interface DBProvider {
 
     String GET_USER_BY_ID = "SELECT * FROM " + USER_TABLE + " WHERE " + ID + " = ?;";
 
-    String ADD_USER = "INSERT INTO " + USER_TABLE + " VALUES (?, ?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE " +
+    String ADD_USER = "INSERT INTO " + USER_TABLE + " VALUES (?, ?, ?, ?, ?, ?, ?) ON DUPLICATE KEY UPDATE " +
             ID + " = VALUES(" + ID + "), " + GOOGLE_TOKEN + " = VALUES(" + GOOGLE_TOKEN + "), " +
             NICKNAME_STR + " = VALUES(" + NICKNAME_STR + "), " + NICKNAME_ID + " = VALUES(" + NICKNAME_ID + "), " +
             COLOR_CROSS + " = VALUES(" + COLOR_CROSS + "), " + COLOR_ZERO + " = VALUES(" + COLOR_ZERO + "), " +
             INVITATION_TARGET + " = VALUES(" + INVITATION_TARGET + ");";
+
+    String ADD_DEVICE_TOKEN = "INSERT INTO " + DEVICE_TABLE + " VALUES (?, ?) ON DUPLICATE KEY UPDATE " +
+            TOKEN + " = VALUES(" + TOKEN + "), " + USER + " = VALUES(" + USER + ");";
 
     String ACTIVE_GAME_COUNT = "SELECT COUNT(*) FROM " + GAME_TABLE +
             " WHERE " + GAME_STATUS + " = " + GameStatus.RUNNING.ordinal() + ";";
